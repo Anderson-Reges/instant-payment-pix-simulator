@@ -2,6 +2,9 @@ package com.trybe.simuladordepix;
 
 import java.io.IOException;
 
+/**
+ * Classe responsavel por processar as operações de pix.
+ */
 public class ProcessadorDePix {
 
   private final Servidor servidor;
@@ -22,6 +25,27 @@ public class ProcessadorDePix {
    *                     entre o aplicativo e o servidor na nuvem.
    */
   public void executarPix(int valor, String chave) throws ErroDePix, IOException {
-    // TODO: Implementar.
+    int valorReais = valor / 100; // 1 real é 100 centavos
+
+    if (valorReais <= 0) {
+      throw new ErroValorNaoPositivo(Mensagens.VALOR_NAO_POSITIVO);
+    }
+
+    if (!chave.isBlank()) {
+      throw new ErroChaveEmBranco(Mensagens.CHAVE_EM_BRANCO);
+    }
+
+    try (Conexao conexao = this.servidor.abrirConexao()) {
+      String response = conexao.enviarPix(valor, chave);
+
+      switch (response) {
+        case CodigosDeRetorno.SALDO_INSUFICIENTE:
+          throw new ErroSaldoInsuficiente(Mensagens.SALDO_INSUFICIENTE);
+        case CodigosDeRetorno.CHAVE_PIX_NAO_ENCONTRADA:
+          throw new ErroChaveNaoEncontrada(Mensagens.CHAVE_NAO_ENCONTRADA);
+        default:
+          throw new ErroInterno(Mensagens.ERRO_INTERNO);
+      }
+    }
   }
 }
