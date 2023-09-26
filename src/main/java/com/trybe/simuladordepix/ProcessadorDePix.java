@@ -31,7 +31,7 @@ public class ProcessadorDePix {
       throw new ErroValorNaoPositivo(Mensagens.VALOR_NAO_POSITIVO);
     }
 
-    if (!chave.isBlank()) {
+    if (chave.isBlank()) {
       throw new ErroChaveEmBranco(Mensagens.CHAVE_EM_BRANCO);
     }
 
@@ -44,7 +44,7 @@ public class ProcessadorDePix {
         case CodigosDeRetorno.CHAVE_PIX_NAO_ENCONTRADA:
           throw new ErroChaveNaoEncontrada(Mensagens.CHAVE_NAO_ENCONTRADA);
         default:
-          throw new ErroInterno(Mensagens.ERRO_INTERNO);
+          break;
       }
     }
   }
