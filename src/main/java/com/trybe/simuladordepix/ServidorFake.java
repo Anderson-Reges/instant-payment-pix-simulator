@@ -1,5 +1,8 @@
 package com.trybe.simuladordepix;
 
+/**
+ * Classe responsavel por simular um servidor.
+ */
 public class ServidorFake implements Servidor {
 
   @Override

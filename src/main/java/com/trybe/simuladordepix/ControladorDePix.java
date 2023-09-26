@@ -2,6 +2,9 @@ package com.trybe.simuladordepix;
 
 import java.io.IOException;
 
+/**
+ * Classe responsavel por controlar a confirmação do pix.
+ */
 public class ControladorDePix {
 
   private final ProcessadorDePix processadorDePix;

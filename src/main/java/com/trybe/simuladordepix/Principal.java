@@ -1,5 +1,8 @@
 package com.trybe.simuladordepix;
 
+/**
+ * Classe Principal que executa o pix.
+ */
 public class Principal {
 
   /**

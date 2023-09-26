@@ -1,5 +1,8 @@
 package com.trybe.simuladordepix;
 
+/**
+ * Classe responsavel por conter os codigos de retorno do servidor.
+ */
 public class CodigosDeRetorno {
 
   public static final String SUCESSO = "sucesso";

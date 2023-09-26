@@ -1,5 +1,8 @@
 package com.trybe.simuladordepix;
 
+/**
+ * Classe responsavel por conter as mensagens das Exceções.
+ */
 public class Mensagens {
 
   public static final String SUCESSO =
