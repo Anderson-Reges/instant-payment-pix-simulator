@@ -28,23 +28,25 @@ public class ProcessadorDePix {
     int valorReais = valor / 100; // 1 real é 100 centavos
 
     if (valorReais <= 0) {
-      throw new ErroValorNaoPositivo(Mensagens.VALOR_NAO_POSITIVO);
+      throw new ErroValorNaoPositivo();
     }
 
     if (chave.isBlank()) {
-      throw new ErroChaveEmBranco(Mensagens.CHAVE_EM_BRANCO);
+      throw new ErroChaveEmBranco();
     }
 
     try (Conexao conexao = this.servidor.abrirConexao()) {
       String response = conexao.enviarPix(valor, chave);
 
       switch (response) {
-        case CodigosDeRetorno.SALDO_INSUFICIENTE:
-          throw new ErroSaldoInsuficiente(Mensagens.SALDO_INSUFICIENTE);
-        case CodigosDeRetorno.CHAVE_PIX_NAO_ENCONTRADA:
-          throw new ErroChaveNaoEncontrada(Mensagens.CHAVE_NAO_ENCONTRADA);
-        default:
+        case CodigosDeRetorno.SUCESSO:
           break;
+        case CodigosDeRetorno.SALDO_INSUFICIENTE:
+          throw new ErroSaldoInsuficiente();
+        case CodigosDeRetorno.CHAVE_PIX_NAO_ENCONTRADA:
+          throw new ErroChaveNaoEncontrada();
+        default:
+          throw new ErroInterno();
       }
     }
   }
